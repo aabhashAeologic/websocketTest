@@ -23,18 +23,24 @@ wsSocket.on("connection", (socket) => {
 
     // recive message from the websocket
     socket.on("message", function incoming(message) {
-        // console.log("recived message as %s ",message)
+
         if (!message) {
             socket.send("not recived the message");
         }
         // if the message is recived then
-        wsSocket.clients.forEach((client)=> {
+        wsSocket.clients.forEach((client) => {
             // if (client !== socket && client.readyState === WebSocket.OPEN) {
-            if ( client.readyState === WebSocket.OPEN) {
+            if (client.readyState === WebSocket.OPEN) {
+                console.log(JSON.parse(message))
+                const messageRecived=JSON.parse(message);
+                const jsonResponse = {
+                    message: 'Response Recived!',
+                    data:messageRecived,
+                };
 
-                console.log("recived message is %s",message)
-                
-                client.send(message);
+                // this will send the json response to the client
+                const responseToSend=JSON.stringify(jsonResponse)
+                client.send(responseToSend );
             }
         });
     })
