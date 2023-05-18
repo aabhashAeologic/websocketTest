@@ -18,6 +18,7 @@ module.exports = (wsSocket) => {
         // recive message from the websocket
         socket.on("message", function incoming(message) {
 
+            
             if (!message) {
                 socket.send("not recived the message");
             } 
