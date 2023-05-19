@@ -6,7 +6,7 @@ const http = require("http");
 // create server
 const app = express();
 const server = http.createServer(app);
-const port = process.env.PORT || 80;
+const port = process.env.PORT || 8990;
 
 
 // test route of home
