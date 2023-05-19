@@ -1,7 +1,7 @@
 const WebSocket = require("ws");
 
-// unique id for the websocket
-const {v4 : uuid} = require('uuid')
+// unique id for the websocket id
+const { v4: uuid } = require('uuid')
 // websocket server
 
 
@@ -18,30 +18,33 @@ module.exports = (wsSocket) => {
         // recive message from the websocket
         socket.on("message", function incoming(message) {
 
-            
+
             if (!message) {
                 socket.send("not recived the message");
-            } 
-                try {
-                    // console.log(JSON.parse(message))
-                    const messageRecived = JSON.parse(message);
-                    const jsonResponse = {
-                        message: 'Response Recived is ',
-                        data: messageRecived,
-                    };
+            }
+            try {
+                // console.log(JSON.parse(message))
+                const messageRecived = JSON.parse(message);
 
-                    // this will send the json response to the client
-                    const responseToSend = JSON.stringify(jsonResponse)
-                    socket.send(responseToSend);
 
-                } catch (error) {
-                    const messageToSend = {
-                        message: "Message format is not JSON",
-                    }
-                    socket.send(JSON.stringify(messageToSend))
+                // this will send the json response to the client
+                // console.log("the response is " + messageRecived);// this will give the message in object format so thant it can be easily accessed and used
+
+                const jsonResponse = {
+                    message: 'Response Recived is ',
+                    data: messageRecived,
+                };
+                // this is to send the json data to the client back using json stringify
+                const responseToSend = JSON.stringify(jsonResponse)
+                socket.send(responseToSend);
+            } catch (error) {
+                const messageToSend = {
+                    message: "Message format is not JSON",
                 }
-                
-           
+                socket.send(JSON.stringify(messageToSend))
+            }
+
+
 
 
             // if the message is recived then  {this allows all the clients to see the message}
